@@ -11,7 +11,7 @@ $ pip install mega.py
 $ pip install animeflv-api
 ```
 
-After installing the dependencies, just download the latest release and run it as you would do with any other .py file:
+After installing the dependencies, just clone the repo and run the .py file as you would do with any other .py file:
 
 ```
 $ python anidownloader.py
