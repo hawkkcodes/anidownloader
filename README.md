@@ -19,7 +19,13 @@ $ python anidownloader.py
 
 ## How does it work?
 
-The program firstly logs in to an anonymous temporary MEGA account. This limits the maximum daily download limit to 5GB for now. To know when the limit has been reached, the program throws an error that looks like this:
+The program firstly asks you for a MEGA login. You can choose between two options:
+
+- Use an anonymous temporary MEGA login. Pick this option if you don't own a MEGA account, or if you don't want to use your personal account. The only con to this choice, is that the daily download limit is 5GB, restricted by network.
+
+- Use your own MEGA account. In case you have a MEGA PRO account (which increases the download limit), you can log in with it and download more chapters than the average user. NOTE: you will get an email when logging in. I'm not responsible of any data loss, as I'm not the creator of the library. If you have any trouble of this kind contact [O'Dwyer Software](https://github.com/odwyersoftware).
+
+To know when the download limit has been reached, the program throws an error that looks like this:
 
 ```
 File "C:\Users\YourUsername\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\mega\mega.py", line 731, in _download_file
@@ -80,6 +86,7 @@ After that you will find a menu, where you can choose between 5 options:
    ```
 
 3. "Descargar capítulos de un anime": It will ask you to search for an anime, and after you pick it, you will be asked to choose between downloading all chapters, or downloading a single chapter. After that, the desired episodes will start downloading.
+
 4. "Finalizar script": Closes the program.
 
 ## Common errors and how to solve them
@@ -107,11 +114,13 @@ You might find some errors when using the program. These do not come from it, bu
 
   I still haven't found a solution to this yet, the only thing you can do for now is go to AnimeFLV and look for it manually.
 
+- mega.errors.RequestError: ENOENT, Object (typically, node or user) not found: This happens when the login data (email or password) is wrong. Execute the program again and type a valid account. In case the error persists, try recovering your account on the official MEGA page.
+
 ## Planned future features
 
 As for now, I'm planning to add these features to the program:
 
-- Log in with your own MEGA account, so if you have a Pro MEGA account you can surpass the 5GB download limit.
+- (Added - 17/07/2022) Log in with your own MEGA account, so if you have a Pro MEGA account you can surpass the 5GB download limit.
 - Option to download groups of chapters (f/e, download from chapter 4 to 20).
 - Make the download path relative, so there's no need to change it for every different user.
 - Create automatically a folder for every different anime downloaded, so you can have everything organized without having to do anything manually.
