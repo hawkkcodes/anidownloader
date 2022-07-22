@@ -8,7 +8,7 @@ To make this program work, [Mega.py](https://github.com/odwyersoftware/mega.py) 
 
 ```
 $ pip install mega.py
-$ pip install animeflv-api
+$ pip install animeflv
 ```
 
 After installing the dependencies, just clone the repo and run the .py file as you would do with any other .py file:
@@ -33,22 +33,19 @@ File "C:\Users\YourUsername\AppData\Local\Packages\PythonSoftwareFoundation.Pyth
 UnboundLocalError: local variable 'i' referenced before assignment
 ```
 
-After that you will find a menu, where you can choose between 5 options:
+After that you will find a menu, where you can choose between 4 options:
 
-0. "Cambiar la ruta de descarga": You can use it to change the download path. If you don't want any trouble, change it directly by modifying variable "downloadPath" value.
+0. "Buscar animes": It will ask for a search term, and print all matching results found in AnimeFLV.
 
-1. "Buscar animes": It will ask for a search term, and print all matching results found in AnimeFLV.
-
-2. "Ver la información de un anime": It does the same as option 1, but you can pick an anime to watch more info about it. Here's an example.
+1. "Ver la información de un anime": It does the same as option 0, but you can pick an anime to watch more info about it. Here's an example.
 
    ```
    Bienvenido a Anidownloader
    ------------------------------
-   (0) - Cambiar la ruta de descarga [RECOMENDABLE SI USTED NO HA MODIFICADO EL CÓDIGO]
-   (1) - Buscar animes
-   (2) - Ver la información de un anime
-   (3) - Descargar capítulos de un anime
-   (4) - Finalizar script
+   (0) - Buscar animes
+   (1) - Ver la información de un anime
+   (2) - Descargar capítulos de un anime
+   (3) - Finalizar script
    
    Escoja una opción: 2
    Introduzca el nombre del anime: Shingeki no Kyojin
@@ -85,9 +82,9 @@ After that you will find a menu, where you can choose between 5 options:
    Puntuación: 4.6 / 5
    ```
 
-3. "Descargar capítulos de un anime": It will ask you to search for an anime, and after you pick it, you will be asked to choose between downloading all chapters, or downloading a single chapter. After that, the desired episodes will start downloading.
+2. "Descargar capítulos de un anime": It will ask you to search for an anime, and after you pick it, you will be asked to choose between downloading all chapters, or downloading a single chapter. After that, the desired episodes will start downloading in the folder where you have anidownloader.py stored.
 
-4. "Finalizar script": Closes the program.
+3. "Finalizar script": Closes the program.
 
 ## Common errors and how to solve them
 
@@ -116,15 +113,19 @@ You might find some errors when using the program. These do not come from it, bu
 
 - mega.errors.RequestError: ENOENT, Object (typically, node or user) not found: This happens when the login data (email or password) is wrong. Execute the program again and type a valid account. In case the error persists, try recovering your account on the official MEGA page.
 
+## Latest updates
+
+These are the latest aditions to anidownloader:
+
+- (Added - 17/07/2022) Log in with your own MEGA account, so if you have a Pro MEGA account you can surpass the 5GB download limit.
+- (Added - 22/07/2022) Make the download path relative, so there's no need to change it for every different user.
+- (Added - 22/07/2022) Create automatically a folder for every different anime downloaded, so you can have everything organized without having to do anything manually.
+
 ## Planned future features
 
 As for now, I'm planning to add these features to the program:
 
-- (Added - 17/07/2022) Log in with your own MEGA account, so if you have a Pro MEGA account you can surpass the 5GB download limit.
 - Option to download groups of chapters (f/e, download from chapter 4 to 20).
-- Make the download path relative, so there's no need to change it for every different user.
-- Create automatically a folder for every different anime downloaded, so you can have everything organized without having to do anything manually.
-- Optimize functions.
 - Language selector.
 - More file providers, like Zippyshare.
 - Graphical user interface to make anidownloader more intuitive to use.

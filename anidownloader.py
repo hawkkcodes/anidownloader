@@ -7,13 +7,10 @@ animeAPI = AnimeFLV()
 # Community made Mega API import
 from mega import Mega
 megaDL = Mega()
-megaAnonLogin = megaDL
 
-# File managing library
+# File managing library and current directory name for future use
 import os
-
-# Default download path, if you are using Windows change 'ismaf' to your account name
-downloadPath = "C:\\Users\\ismaf\\Videos"
+dirname = os.path.dirname(__file__)
 
 # Enumeration, used for error message showing
 from enum import Enum
@@ -38,24 +35,23 @@ def errorMessage(Error):
 def showMenu():
     print("Bienvenido a Anidownloader" + '\n' + 
             "------------------------------" + '\n' +
-            "(0) - Cambiar la ruta de descarga [RECOMENDABLE SI USTED NO HA MODIFICADO EL CÓDIGO]" + '\n' +
-            "(1) - Buscar animes" + '\n' +
-            "(2) - Ver la información de un anime" + '\n' +
-            "(3) - Descargar capítulos de un anime" + '\n' +
-            "(4) - Finalizar script" + '\n')
+            "(0) - Buscar animes" + '\n' +
+            "(1) - Ver la información de un anime" + '\n' +
+            "(2) - Descargar capítulos de un anime" + '\n' +
+            "(3) - Finalizar script" + '\n')
 
 # Basic setup for MEGA
 def megaConfiguration():
     print('\n' + "Tipos de cuenta disponible: " + '\n' +
             "(0) - Cuenta anónima, límite de descarga de 5GB diarios." + '\n' +
             "(1) - Cuenta personal, límite de descarga en base a tu suscripción." + '\n')
-    choice = input("Escoja qué tipo de cuenta de MEGA quiere usar: ")
-    while(int(choice)<0 or int(choice)>1):
+    choice = int(input("Escoja qué tipo de cuenta de MEGA quiere usar: "))
+    while(choice<0 or choice>1):
         errorMessage(Error.WRONG_OPTION)
-        choice = input("Introduzca otro valor: ")
-    if int(choice)==0:
+        choice = int(input("Introduzca otro valor: "))
+    if choice==0:
         megaAnonLogin = megaDL.login()
-    if int(choice)==1:
+    if choice==1:
         email = input("Introduzca el correo electrónico vinculado a su cuenta de MEGA: ")
         password = input("Introduzca la contraseña: ")
         megaAnonLogin = megaDL.login(email, password)
@@ -65,10 +61,6 @@ def megaConfiguration():
 def downloadMenu():
     print("(0) - Descargar todos los capítulos" + '\n' +
           "(1) - Descargar un capítulo en concreto")
-
-# Changes the download route
-def changeRoute():
-    downloadPath = input("Escriba la nueva ruta de descarga [NOTA - Si estás en Windows, añade un backlash extra (\) en cada salto de directorio]: ")
 
 # Checks if a filename has the correct syntax for Windows File Naming
 def getFilename(filename):
@@ -176,7 +168,14 @@ def downloadChapter(animeChosen, episodeNumber):
         chapterFilename = animeChosen["title"] + " - Episodio " + str(episodeNumber+1) + ".mp4"
         chapterFilename = getFilename(chapterFilename)
         print("Descargando " + chapterFilename)
-                
+        
+        # The download path is different due to the file naming method difference between Windows and UNIX-based systems
+        downloadPath = os.path.join(dirname, "Downloaded Anime", getFilename(animeChosen["title"]))
+
+        # If the folder for the anime you are going to download is not created, the program makes it
+        if os.path.isdir(downloadPath) == False:
+            os.mkdir(downloadPath)
+        
         # If it throws a PermissionError [WinError 32] here, go to MegaAPI mepa.py file and remove a tab from lines 745 and 746
         # The file should be in the next path (Windows): 
         # C:\Users\YourUsername\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\mega
@@ -200,31 +199,30 @@ def downloader(animeChosen):
             dlMenuOption = input("Escoja un capítulo a descargar: ")
             dlMenuOption = int(dlMenuOption)-1
             downloadChapter(animeChosen, dlMenuOption)
-        
+
+
 mainMenuOption = 0
-# Main program loop
 megaAnonLogin = megaConfiguration()
-while(mainMenuOption!=4):
+
+# Main program loop
+while(mainMenuOption!=3):
     # This line is here just in case the API doesn't work properly for the first time (happened while testing)
     animeAPI = AnimeFLV()
 
     showMenu()
-    mainMenuOption = input("Escoja una opción: ")
-    mainMenuOption = int(mainMenuOption)
+    mainMenuOption = int(input("Escoja una opción: "))
 
     # Loops until a correct option is chosen
-    while(mainMenuOption<0 and mainMenuOption>4):
+    while(mainMenuOption<0 or mainMenuOption>3):
         errorMessage(Error.WRONG_OPTION)
-        mainMenuOption = input("Introduzca una opción de la lista anterior: ")
-    
+        mainMenuOption = int(input("Introduzca una opción de la lista anterior: "))
+
     if mainMenuOption==0:
-        changeRoute()
-    elif mainMenuOption==1:
         animeFinderNoArg()
-    elif mainMenuOption==2:
+    elif mainMenuOption==1:
         gonnaDownload=0
         viewInfoOrDL(gonnaDownload)
-    elif mainMenuOption==3:
+    elif mainMenuOption==2:
         gonnaDownload=1
         viewInfoOrDL(gonnaDownload)
 
