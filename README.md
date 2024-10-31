@@ -1,3 +1,8 @@
+# IMPORTANT!
+I'm not supporting the repo for a couple of years now, and I don't have any plans to do it. If anyone wants to continue this project, you're free to do whatever you want with the code.
+
+---
+
 # anidownloader
 
 A tool to download anime chapters from AnimeFLV, built with Python.
